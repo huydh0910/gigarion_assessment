@@ -1,19 +1,16 @@
 /// <reference types="cypress" />
 
+import { onClientDelayPage } from "../../support/PageObject/ClientDelayPage"
+import { navigateTo } from "../../support/PageObject/navigationPage"
+
 describe('test suite',() => {
 
     it('client side delay test',  () => {
-        cy.visit('/clientdelay')
         //TC1: Verify user can access to Client Side Delay successfully 
-        cy.get('section div h3').should('contain','Client Side Delay')
+        navigateTo.clientSideDelayPage()
 
-        //TC2: 
-
-        cy.get('[id="ajaxButton"]').click()
-        cy.get('[id="content"]',{ timeout: 15500 }).should('be.visible')
-        cy.get('[id="content"]').then( content => {
-            cy.wrap(content).should('be.visible')
-            cy.wrap(content).find('p').should('contain','Data calculated on the client side.')
-        })
+        //TC2: Verify user can click on button and view the result
+        onClientDelayPage.clickButtonAndWaitResult()
+        
     })
 })

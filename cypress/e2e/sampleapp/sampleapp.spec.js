@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 
+import { navigateTo } from "../../support/PageObject/navigationPage"
+import { onSampleAppPage } from "../../support/PageObject/sampleAppPage"
+
 describe('test suite',() => {
     describe('suite section', () => {
         
@@ -11,49 +14,29 @@ describe('test suite',() => {
         })
     })
     it('login test',  () => {
-        cy.visit('/sampleapp')
         //TC1: Verify user can access to Sample App successfully 
-        cy.get('section div h3').should('contain','Sample App')
+        navigateTo.sampleAppPage()
 
         //TC2: Verify user can login with valid username and valid(pwd) password
-        cy.get('[name="UserName"]').type('Huy')
-        cy.get('[name="Password"]').type('pwd')
-        cy.get('[id="login"]').click()
-        cy.get('[id="loginstatus"]').should('contain','Welcome, Huy!')
-        cy.get('[id="login"]').should('contain','Log Out')
+        onSampleAppPage.loginSuccessfull('Huy','pwd')
         //TC3: Verify after logged in, user can logout successfully
-        cy.get('[id="login"]').click()
-        cy.get('[id="loginstatus"]').should('contain','User logged out.')
-        cy.get('[id="login"]').should('contain','Log In')
+        onSampleAppPage.logout()
         //TC4: Verify user can login with special symbol username and valid(pwd) password
         //TC6: Verify user can login with invalid username(space value) and valid(pwd) password
         const usernames = ['!@#$',' ','Huy']
         cy.wrap(usernames).each(username => {
-            cy.get('[name="UserName"]').type(username)
-            cy.get('[name="Password"]').type('pwd')
-            cy.get('[id="login"]').click()
-            cy.get('[id="loginstatus"]').should('contain',`Welcome, ${username}`)
-            cy.get('[id="login"]').should('contain','Log Out')
-            cy.get('[id="login"]').click()
+            onSampleAppPage.loginSuccessfull(username,'pwd')
+            onSampleAppPage.logout()
         })
 
         //TC5: Verify user cannot login with invalid username(blank value) and valid(pwd) password
-        cy.get('[name="UserName"]')
-        cy.get('[name="Password"]').type('pwd')
-        cy.get('[id="login"]').click()
-        cy.get('[id="loginstatus"]').should('contain','Invalid username/password')
-        cy.get('[id="login"]').should('contain','Log In')
-
+        onSampleAppPage.loginFailedWithoutUsername('pwd')    
         
         //TC7: Verify user cannot login with valid username and invalid password
         //TC8: Verify user cannot login with invalid username(space value) and invalid(not pwd) password
         const passwords = [' ', 'password']
         cy.wrap(passwords).each( password => {
-            cy.get('[name="UserName"]').type('usernames')
-            cy.get('[name="Password"]').type(password)
-            cy.get('[id="login"]').click()
-            cy.get('[id="loginstatus"]').should('contain','Invalid username/password')
-            cy.get('[id="login"]').should('contain','Log In')
+            onSampleAppPage.loginFailed(password)
         })
     })
 })

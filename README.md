@@ -6,3 +6,8 @@ http://uitestingplayground.com/verifytext
 http://uitestingplayground.com/classattr
 
 Based on the sample web application, you can define test-cases for all of them and Using cypress to run automation on these pages
+
+
+Terminal command:
+npm install cypress
+npx cypress open

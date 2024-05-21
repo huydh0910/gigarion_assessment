@@ -1,19 +1,19 @@
 /// <reference types="cypress" />
+
+import { navigateTo } from "../../support/PageObject/navigationPage"
+import { onVerifyTextPage } from "../../support/PageObject/verifyTextPage"
+
 describe('test suite',() => {
 
     it('Verify Text test',  () => {
-        cy.visit('/VerifyText')
         //TC1: Verify user can access to Verify Text page successfully 
-        cy.get('section div h3').should('contain','Verify Text')
+        navigateTo.verifyTextPage()
 
         //TC2: Verify the text 'Welcome UserName!' can be found in highlight area
-        const exspectedstring = 'Welcome UserName!'
-        cy.get('.bg-primary').should('contain',exspectedstring)
-        
+        onVerifyTextPage.checkthePrimaryText('Welcome UserName!')
+
         //TC3: Verify the text 'Hello UserName!' can be found in highlight area
-        const exspectedstring2 = 'Hello UserName!'
-        cy.get('.bg-warning .badge-secondary').should('contain',exspectedstring2);
-    
-    
+        onVerifyTextPage.checktheSecondaryText('Hello UserName!')
+
     })
 })
