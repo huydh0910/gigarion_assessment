@@ -12,7 +12,7 @@ describe('test suite',() => {
         
         //TC3: Verify the text 'Hello UserName!' can be found in highlight area
         const exspectedstring2 = 'Hello UserName!'
-        cy.get('.bg-warning .badge-secondary').should('contain',exspectedstring2)
+        cy.get('.bg-warning .badge-secondary').should('contain',exspectedstring2);
     
     
     })
