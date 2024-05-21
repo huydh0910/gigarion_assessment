@@ -3,7 +3,7 @@ export class SampleAppPage{
         cy.get('[name="UserName"]').type(name)
         cy.get('[name="Password"]').type(pwd)
         cy.get('[id="login"]').click()
-        cy.get('[id="loginstatus"]').should('contain','Welcome, Huy!')
+        cy.get('[id="loginstatus"]').should('contain','Welcome, '+name+'!')
         cy.get('[id="login"]').should('contain','Log Out')
     }
     logout(){
