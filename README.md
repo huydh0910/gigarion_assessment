@@ -11,3 +11,5 @@ Based on the sample web application, you can define test-cases for all of them a
 Terminal command:
 npm install cypress
 npx cypress open
+
+edit for trigger
